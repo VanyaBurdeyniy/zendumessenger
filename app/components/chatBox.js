@@ -182,6 +182,15 @@ class ChatBox extends React.Component {
     render() {
         const stat = this.props.currentUserStatus || {record:{isDeviceCommunicating: false},address:null}
 
+        this.props.geotab.call('Get', {
+           typeName: 'User',
+            search: {
+                id: this.props.currentUser.id
+            }
+        }).then( resp => {
+            console.log(resp);
+        });
+
         return (
 
             <div className="chat">
