@@ -36,19 +36,7 @@ class ChatBox extends React.Component {
     generateMessage(from, date, text, right) {
 
         this.props.geotab.call('Get', {
-           typeName: 'TextMessage',
-            search: {
-                id: this.props.currentUser.id
-            }
-        }).then( resp => {
-            console.log(resp);
-        } );
-
-        this.props.geotab.call('Get', {
-           typeName: 'Message',
-            search: {
-                id: this.props.currentUser.id
-            }
+           typeName: 'TextMessage'
         }).then( resp => {
             console.log(resp);
         } );
