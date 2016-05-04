@@ -69,7 +69,7 @@ class PhoneNumber extends React.Component {
 
         this.props.geotab.call('Set', {
           typeName: 'User',
-          data: resp[0]
+          entity: resp[0]
         }).then( resp => {
           console.log(resp);
         } )
