@@ -2,7 +2,7 @@
 
 import UserBox from './userBox';
 
-export default;
+export default
 
 class UserList extends React.Component {
   constructor( props ) {

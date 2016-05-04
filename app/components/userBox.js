@@ -1,6 +1,6 @@
 'use strict';
 
-export default;
+export default
 
 class UserBox extends React.Component {
   constructor( props ) {

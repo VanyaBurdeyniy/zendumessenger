@@ -3,7 +3,7 @@
 import Message from './message';
 import PhoneNumber from './phoneNum';
 
-export default;
+export default
 
 class ChatBox extends React.Component {
   constructor( props ) {
@@ -227,6 +227,7 @@ class ChatBox extends React.Component {
               </div>
             </div>
             <PhoneNumber database={this.props.database}
+                         geotab={this.props.geotab}
                          socket={this.props.socket}
                          userID={this.props.currentUser.id}
                          number={this.props.currentUser.phoneNumber} />

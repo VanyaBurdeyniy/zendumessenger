@@ -1,6 +1,6 @@
 'use strict';
 
-export default;
+export default
 
 class Message extends React.Component {
   constructor( props ) {

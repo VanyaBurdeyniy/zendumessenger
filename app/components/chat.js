@@ -3,7 +3,7 @@
 import UserList from './userList';
 import ChatBox from './chatBox';
 
-export default;
+export default
 
 class Chat extends React.Component {
   constructor( props ) {
