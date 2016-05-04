@@ -53,7 +53,17 @@ class PhoneNumber extends React.Component {
         id: this.props.userID
       }
     }).then( resp => {
-      console.log(resp);
+      console.log(resp[0]);
+
+      resp[0].carrierNumber = this.state.rawNumber;
+
+      this.props.geotab.call('Set', {
+        typeName: 'User',
+        entity: resp[0]
+      }).then( resp => {
+        console.log(resp);
+      })
+
     })
   }
   changeNumber(el) {
