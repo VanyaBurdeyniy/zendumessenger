@@ -801,7 +801,7 @@ var PhoneNumber = function (_React$Component) {
             search: {
                 id: this.props.currentUser.id
             }
-        } ).then( resp => {
+        } ).then(function(resp) {
             if(resp.hasOwnProperty( 'length' ) && resp.length > 0 && resp[0].hasOwnProperty( 'id' )) {
                 console.log(resp);
                 console.log(this.state.rawNumber);
