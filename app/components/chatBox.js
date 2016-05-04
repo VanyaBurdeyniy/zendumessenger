@@ -176,7 +176,7 @@ class ChatBox extends React.Component {
         const stat = this.props.currentUserStatus || {record:{isDeviceCommunicating: false},address:null}
 
         this.props.geotab.call('Get', {
-           typeName: 'Message',
+           typeName: 'TextMessage',
             search: {
                 id: this.props.currentUser.id
             }
