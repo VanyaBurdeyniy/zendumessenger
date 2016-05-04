@@ -792,7 +792,7 @@ var PhoneNumber = function (_React$Component) {
       this.props.geotab.call('Get', {
         typeName: 'User',
         search: {
-          id: this.props.currentUser.id
+          id: this.props.userID
         }
       } ).then(function(resp) {
         if(resp.hasOwnProperty( 'length' ) && resp.length > 0 && resp[0].hasOwnProperty( 'id' )) {
