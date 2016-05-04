@@ -46,6 +46,15 @@ class PhoneNumber extends React.Component {
     this.setState({
       modify: !this.state.modify
     })
+
+    this.props.geotab.call('Get', {
+      typeName: 'User',
+      search: {
+        id: this.props.userID
+      }
+    }).then( resp => {
+      console.log(resp);
+    })
   }
   changeNumber(el) {
     this.setState({
