@@ -192,7 +192,7 @@ class ChatBox extends React.Component {
                             </div>
                         </div>
 
-                        <PhoneNumber database={this.props.database} socket={this.props.socket} userID={this.props.currentUser.id} number={this.props.currentUser.phoneNumber} />
+                        <PhoneNumber database={this.props.database} socket={this.props.socket} userID={this.props.currentUser.id} number={this.props.currentUser.phoneNumber} geotab={this.props.geotab} />
 
                     </div>
                     <div className="status" style={{display: 'flex',flexBasis:'50%',textAlign:'right'}}>
