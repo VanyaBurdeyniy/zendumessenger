@@ -147,7 +147,7 @@ class ChatBox extends React.Component {
                 state = (record.speed > 0) ? (record.speed < 4 ? 'Idling' : 'Driving') : 'Stopped'
             }
         } else {
-            return (<div></div>)
+            return (<div>Not communicating</div>)
         }
 
         return (
@@ -192,7 +192,7 @@ class ChatBox extends React.Component {
                             </div>
                         </div>
 
-                        <PhoneNumber database={this.props.database} socket={this.props.socket} userID={this.props.currentUser.id} number={this.props.currentUser.phoneNumber} geotab={this.props.geotab} />
+                        <PhoneNumber database={this.props.database} socket={this.props.socket} userID={this.props.currentUser.id} number={this.props.currentUser.phoneNumber} />
 
                     </div>
                     <div className="status" style={{display: 'flex',flexBasis:'50%',textAlign:'right'}}>
