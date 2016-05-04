@@ -34,6 +34,7 @@ class ChatBox extends React.Component {
         this.props.socket.removeAllListeners('messages')
     }
     generateMessage(from, date, text, right) {
+        console.log(this.props);
         return (
             <Message key={from + date + Math.random()} name={from} date={date} text={text} right={right} />
         )
@@ -147,7 +148,7 @@ class ChatBox extends React.Component {
                 state = (record.speed > 0) ? (record.speed < 4 ? 'Idling' : 'Driving') : 'Stopped'
             }
         } else {
-            return (<div>Not communicating</div>)
+            return (<div></div>)
         }
 
         return (
@@ -192,7 +193,7 @@ class ChatBox extends React.Component {
                             </div>
                         </div>
 
-                        <PhoneNumber database={this.props.database} socket={this.props.socket} userID={this.props.currentUser.id} number={this.props.currentUser.phoneNumber} />
+                        <PhoneNumber database={this.props.database} socket={this.props.socket} userID={this.props.currentUser.id} number={this.props.currentUser.phoneNumber} geotab={this.props.geotab} />
 
                     </div>
                     <div className="status" style={{display: 'flex',flexBasis:'50%',textAlign:'right'}}>
