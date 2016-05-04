@@ -35,11 +35,11 @@ class ChatBox extends React.Component {
     }
     generateMessage(from, date, text, right) {
 
-        this.props.geotab.call('Get', {
-           typeName: 'TextMessage'
-        }).then( resp => {
-            console.log(resp);
-        } );
+        //this.props.geotab.call('Get', {
+        //   typeName: 'TextMessage'
+        //}).then( resp => {
+        //    console.log(resp);
+        //} );
 
         if (from !== null) {
             return (
@@ -85,7 +85,9 @@ class ChatBox extends React.Component {
                             },
                             isDirectionToVehicle: true
                         }
-                    })
+                    }).then( resp => {
+                        console.log(resp);
+                    } )
 
                 }
             })
