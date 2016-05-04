@@ -50,7 +50,7 @@ class Chat extends React.Component {
 
     return u.length > 0 ? u[0].name : null
   }
-  static userFromGeotabUser( user, currentUser ) {
+  userFromGeotabUser( user, currentUser ) {
     let active = (currentUser === undefined)
       ? false
       : (currentUser.id === user.id);
@@ -71,6 +71,7 @@ class Chat extends React.Component {
     } ).then( resp => {
       if(resp !== undefined && resp.hasOwnProperty( 'length' ) && resp.length > 0) {
         let currentUser = this.userFromGeotabUser( resp[0] );
+        //let currentUser = this.componentDidMount();
 
         this.setState( {
           currentUser: currentUser,
