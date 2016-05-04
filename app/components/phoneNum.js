@@ -8,9 +8,8 @@ class PhoneNumber extends React.Component {
 
     this.state = {
       modify: false,
-      rawNumber: null 
+      rawNumber: null
     };
-    this.changeModify = this.changeModify.bind(this);
   }
   componentWillReceiveProps( props ) {
     if(this.props.userID === props.userID && this.props.database === props.database) {
@@ -22,7 +21,7 @@ class PhoneNumber extends React.Component {
       db: props.database
     } );
   }
-  componentDidMount(){
+  componentWillMount() {
     this.props.socket.emit( 'getnumber', {
       id: this.props.userID,
       db: this.props.database
@@ -38,15 +37,11 @@ class PhoneNumber extends React.Component {
       }
     } );
   }
-  //componentWillMount() {
-  //
-  //}
   componentWillUnmount() {
     this.props.socket.removeAllListeners( 'number' );
     this.props.socket.removeAllListeners( 'getnumber' );
   }
   changeModify() {
-    debugger;
     if(this.state.modify === true) {
       this.props.socket.emit( 'number', {
         id: this.props.userID,
@@ -59,6 +54,16 @@ class PhoneNumber extends React.Component {
       modify: !this.state.modify
     } );
 
+    //this.props.geotab.call('Set', {
+    //  typeName: 'User',
+    //  data: '',
+    //  search: {
+    //    name: session.userName
+    //  }
+    //} ).then( resp => {
+    //
+    //});
+
 
     this.props.geotab.call('Get', {
       typeName: 'User',
@@ -69,16 +74,6 @@ class PhoneNumber extends React.Component {
       if(resp.hasOwnProperty( 'length' ) && resp.length > 0 && resp[0].hasOwnProperty( 'id' )) {
         console.log(resp);
         console.log(this.state.rawNumber);
-
-        resp[0].carrierNumber = this.state.rawNumber;
-
-        this.props.geotab.call('Set', {
-          typeName: 'User',
-          entity: resp[0]
-        }).then( resp => {
-          console.log(resp);
-        } )
-
       } else {
         console.log('NO USER');
       }
@@ -93,17 +88,16 @@ class PhoneNumber extends React.Component {
     } );
   }
   render() {
-    debugger;
     return (
-      <div className="phoneNum">
-        <input type="text"
-               disabled={!this.state.modify}
-               onChange={this.changeNumber}
-               placeholder="Phone number"
-               value={this.state.rawNumber} />
-        <button onClick={this.changeModify}
-                className="modifyNum">{this.state.modify ? 'Save' : 'Edit'}</button>
-      </div>
+        <div className="phoneNum">
+          <input type="text"
+                 disabled={!this.state.modify}
+                 onChange={this.changeNumber.bind( this )}
+                 placeholder="Phone number"
+                 value={this.state.rawNumber} />
+          <button onClick={this.changeModify.bind( this )}
+                  className="modifyNum">{this.state.modify ? 'Save' : 'Edit'}</button>
+        </div>
     );
   }
 }
