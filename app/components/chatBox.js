@@ -34,13 +34,6 @@ class ChatBox extends React.Component {
         this.props.socket.removeAllListeners('messages')
     }
     generateMessage(from, date, text, right) {
-
-        //this.props.geotab.call('Get', {
-        //   typeName: 'TextMessage'
-        //}).then( resp => {
-        //    console.log(resp);
-        //} );
-
         if (from !== null) {
             return (
                 <Message key={from + date + Math.random()} name={from} date={date} text={text} right={right} />
@@ -183,7 +176,7 @@ class ChatBox extends React.Component {
         const stat = this.props.currentUserStatus || {record:{isDeviceCommunicating: false},address:null}
 
         this.props.geotab.call('Get', {
-           typeName: 'User',
+           typeName: 'Message',
             search: {
                 id: this.props.currentUser.id
             }
