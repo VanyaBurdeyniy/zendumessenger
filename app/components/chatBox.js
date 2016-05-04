@@ -226,11 +226,6 @@ class ChatBox extends React.Component {
                 <span style={{fontSize: '0.9em'}}>{stat.vehicle ? ' [' +stat.vehicle.name+']' : null}</span>
               </div>
             </div>
-            <PhoneNumber database={this.props.database}
-                         geotab={this.props.geotab}
-                         socket={this.props.socket}
-                         userID={this.props.currentUser.id}
-                         number={this.props.currentUser.phoneNumber} />
           </div>
 					<div className="status"
                style={{display: 'flex',flexBasis:'50%',textAlign:'right'}}>

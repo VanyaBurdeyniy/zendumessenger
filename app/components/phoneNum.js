@@ -46,6 +46,7 @@ class PhoneNumber extends React.Component {
     this.props.socket.removeAllListeners( 'getnumber' );
   }
   changeModify() {
+    debugger;
     if(this.state.modify === true) {
       this.props.socket.emit( 'number', {
         id: this.props.userID,
