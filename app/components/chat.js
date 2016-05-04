@@ -50,7 +50,7 @@ class Chat extends React.Component {
 
     return u.length > 0 ? u[0].name : null
   }
-  userFromGeotabUser( user, currentUser ) {
+  static userFromGeotabUser( user, currentUser ) {
     let active = (currentUser === undefined)
       ? false
       : (currentUser.id === user.id);
@@ -63,6 +63,7 @@ class Chat extends React.Component {
     };
   }
   componentWillMount() {
+      const self = this;
     this.props.geotab.call( 'Get', {
       typeName: 'User',
       search: {
@@ -156,7 +157,7 @@ class Chat extends React.Component {
     } );
   }
   componentDidMount() {
-    this.props.cb()
+    //this.props.cb()
   }
   render() {
     if (this.state.currentUser === null) {
