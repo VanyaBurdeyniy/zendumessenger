@@ -10,6 +10,7 @@ class PhoneNumber extends React.Component {
       modify: false,
       rawNumber: null 
     };
+    this.changeModify = this.changeModify.bind(this);
   }
   componentWillReceiveProps( props ) {
     if(this.props.userID === props.userID && this.props.database === props.database) {
@@ -21,7 +22,7 @@ class PhoneNumber extends React.Component {
       db: props.database
     } );
   }
-  componentWillMount() {
+  componentDidMount(){
     this.props.socket.emit( 'getnumber', {
       id: this.props.userID,
       db: this.props.database
@@ -37,6 +38,9 @@ class PhoneNumber extends React.Component {
       }
     } );
   }
+  //componentWillMount() {
+  //
+  //}
   componentWillUnmount() {
     this.props.socket.removeAllListeners( 'number' );
     this.props.socket.removeAllListeners( 'getnumber' );
@@ -88,14 +92,15 @@ class PhoneNumber extends React.Component {
     } );
   }
   render() {
+    debugger;
     return (
       <div className="phoneNum">
         <input type="text"
                disabled={!this.state.modify}
-               onChange={this.changeNumber.bind( this )}
+               onChange={this.changeNumber}
                placeholder="Phone number"
                value={this.state.rawNumber} />
-        <button onClick={this.changeModify.bind( this )}
+        <button onClick={this.changeModify}
                 className="modifyNum">{this.state.modify ? 'Save' : 'Edit'}</button>
       </div>
     );
