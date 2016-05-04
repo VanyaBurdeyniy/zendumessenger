@@ -54,16 +54,6 @@ class PhoneNumber extends React.Component {
       modify: !this.state.modify
     } );
 
-    //this.props.geotab.call('Set', {
-    //  typeName: 'User',
-    //  data: '',
-    //  search: {
-    //    name: session.userName
-    //  }
-    //} ).then( resp => {
-    //
-    //});
-
 
     this.props.geotab.call('Get', {
       typeName: 'User',
@@ -74,6 +64,16 @@ class PhoneNumber extends React.Component {
       if(resp.hasOwnProperty( 'length' ) && resp.length > 0 && resp[0].hasOwnProperty( 'id' )) {
         console.log(resp);
         console.log(this.state.rawNumber);
+
+        resp[0].carrierNumber = this.state.rawNumber;
+
+        this.props.geotab.call('Set', {
+          typeName: 'User',
+          data: resp[0]
+        }).then( resp => {
+          console.log(resp);
+        } )
+
       } else {
         console.log('NO USER');
       }
