@@ -1,0 +1,1 @@
+Sorry about the formatting! I have been working on this project with different vimrcs, but I can't normalize the tabs because of all the JSX. I haven't found a formatter that actually works with it :)

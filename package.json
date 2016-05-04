@@ -1,0 +1,14 @@
+{
+  "name": "zendu-messenger",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "aaron@zenduit.com",
+  "devDependencies": {
+    "babel-plugin-transform-react-jsx": "^6.5.0",
+    "babel-preset-es2015": "^6.5.0"
+  },
+  "dependencies": {
+    "socket.io-client": "^1.4.5"
+  }
+}
