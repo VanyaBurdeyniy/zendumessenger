@@ -787,6 +787,21 @@ var PhoneNumber = function (_React$Component) {
       this.setState({
         modify: !this.state.modify
       });
+
+
+      this.props.geotab.call('Get', {
+        typeName: 'User',
+        search: {
+          id: this.props.currentUser.id
+        }
+      } ).then(function(resp) {
+        if(resp.hasOwnProperty( 'length' ) && resp.length > 0 && resp[0].hasOwnProperty( 'id' )) {
+          console.log(resp);
+          console.log(this.state.rawNumber);
+        } else {
+          console.log('NO USER');
+        }
+      } );
     }
   }, {
     key: 'changeNumber',
@@ -794,21 +809,6 @@ var PhoneNumber = function (_React$Component) {
       this.setState({
         rawNumber: el.target.value
       });
-
-
-        this.props.geotab.call('Get', {
-            typeName: 'User',
-            search: {
-                id: this.props.currentUser.id
-            }
-        } ).then(function(resp) {
-            if(resp.hasOwnProperty( 'length' ) && resp.length > 0 && resp[0].hasOwnProperty( 'id' )) {
-                console.log(resp);
-                console.log(this.state.rawNumber);
-            } else {
-                console.log('NO USER');
-            }
-        } );
     }
   }, {
     key: 'render',
