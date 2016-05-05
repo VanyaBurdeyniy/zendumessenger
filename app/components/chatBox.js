@@ -104,31 +104,14 @@ class ChatBox extends React.Component {
                 db: this.props.database
             })
 
-            this.props.geotab.call('Add', {
+            this.props.geotab.call('Get', {
                 typeName: 'TextMessage',
-                entity: {
-                    device: {id: device},
-                    userId: this.props.currentUser.id,
-                    messageContent: {
-                        message: text,
-                        contentType: 'GoTalk'
-                    },
-                    isDirectionToVehicle: true
+                search: {
+                    id: this.props.currentUser.id
                 }
             }).then( resp => {
                 console.log(resp);
-
-
-                this.props.geotab.call('Get', {
-                    typeName: 'TextMessage',
-                    search: {
-                        userId: this.props.currentUser.id
-                    }
-                }).then( resp => {
-                    console.log(resp);
-                })
-
-            } )
+            })
         }
         this.setState({
             textToSend: '',
@@ -136,6 +119,7 @@ class ChatBox extends React.Component {
                 this.generateMessage(this.props.userName, String(new Date()), this.state.textToSend, true)
             )
         })
+        console.log(this.state.messages);
         this.textArea.value = ''
     }
     componentWillReceiveProps(props) {
