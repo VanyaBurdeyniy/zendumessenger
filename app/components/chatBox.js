@@ -16,6 +16,11 @@ class ChatBox extends React.Component {
     }
     componentWillMount() {
         this.props.socket.on('msg', data => {
+
+            data = data.filter( message => {
+                return message.userName == this.props.userName;
+            })
+
             this.setState({
                 textToSend: '',
                 messages: this.state.messages.concat(
