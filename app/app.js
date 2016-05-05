@@ -50,4 +50,3 @@ geotab.addin.ZenduMessenger = (api,state) => {
     }
   }
 }
-
