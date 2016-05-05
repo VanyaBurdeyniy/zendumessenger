@@ -40,6 +40,7 @@ class ChatBox extends React.Component {
         this.props.socket.removeAllListeners('messages')
     }
     generateMessage(from, date, text, right) {
+        console.log(this.state.messages);
         if (from !== null) {
             return (
                 <Message key={from + date + Math.random()} name={from} date={date} text={text} right={right} />
@@ -66,18 +67,6 @@ class ChatBox extends React.Component {
             return
         }
         if(this.sendGotalk.checked) {
-
-            this.props.geotab.call('Get', {
-                typeName: 'Device'
-            }).then( resp => {
-                console.log(resp);
-            })
-
-            this.props.geotab.call('Get', {
-                typeName: 'User'
-            }).then( resp => {
-                console.log(resp);
-            })
 
             this.props.geotab.call('Get', {
                 typeName: 'DeviceStatusInfo'
@@ -123,23 +112,23 @@ class ChatBox extends React.Component {
             })
 
 
-            this.props.geotab.call('Add', {
-                typeName: 'TextMessage',
-                entity: {
-                    device: {id: 'Go7'},
-                    id: this.props.currentUser.id,
-                    user: {
-                      name: this.props.userName
-                    },
-                    messageContent: {
-                        message: text,
-                        contentType: 'GoTalk'
-                    },
-                    isDirectionToVehicle: true
-                }
-            }).then( resp => {
-                console.log(resp);
-            } )
+            //this.props.geotab.call('Add', {
+            //    typeName: 'TextMessage',
+            //    entity: {
+            //        device: {id: 'Go7'},
+            //        id: this.props.currentUser.id,
+            //        user: {
+            //          name: this.props.userName
+            //        },
+            //        messageContent: {
+            //            message: text,
+            //            contentType: 'GoTalk'
+            //        },
+            //        isDirectionToVehicle: true
+            //    }
+            //}).then( resp => {
+            //    console.log(resp);
+            //} )
         }
         this.setState({
             textToSend: '',
