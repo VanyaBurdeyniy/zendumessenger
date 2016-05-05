@@ -16,11 +16,6 @@ class ChatBox extends React.Component {
     }
     componentWillMount() {
         this.props.socket.on('msg', data => {
-
-            data = data.filter( message => {
-                return message.userName == this.props.userName;
-            })
-
             this.setState({
                 textToSend: '',
                 messages: this.state.messages.concat(
@@ -29,33 +24,9 @@ class ChatBox extends React.Component {
             })
         })
         this.props.socket.on('messages', data => {
-
-            data.forEach( message => {
-                if (message.dispatch) {
-                    this.props.geotab.call('Get', {
-                        typeName: 'User',
-                        search: {
-                            name: this.props.userName
-                        }
-                    }).then( resp => {
-                        console.log(resp);
-
-                        data = data.filter( mesg => {
-                            return mesg.from == resp[0].id;
-                        })
-
-                        this.setState({
-                            messages: data.map(msg => this.generateMessage(this.props.idLookup(msg.from), msg.date, msg.msg, msg.dispatch))
-                        })
-                        console.log(data);
-                    })
-                } else {
-                    this.setState({
-                        messages: data.map(msg => this.generateMessage(this.props.idLookup(msg.from), msg.date, msg.msg, msg.dispatch))
-                    })
-                }
-            });
-            //console.log(this.props.userID);
+            this.setState({
+                messages: data.map(msg => this.generateMessage(this.props.idLookup(msg.from), msg.date, msg.msg, msg.dispatch))
+            })
         })
     }
     componentWillUnmount() {
@@ -63,16 +34,9 @@ class ChatBox extends React.Component {
         this.props.socket.removeAllListeners('messages')
     }
     generateMessage(from, date, text, right) {
-        //console.log(this.state.messages);
-        if (from !== null) {
-            return (
-                <Message key={from + date + Math.random()} name={from} date={date} text={text} right={right} />
-            )
-        } else {
-            return (
-                <Message key={from + date + Math.random()} name={this.props.userName} date={date} text={text} right={right} />
-            )
-        }
+        return (
+            <Message key={from + date + Math.random()} name={from} date={date} text={text} right={right} />
+        )
     }
     updateText(el) {
         this.setState({
@@ -90,39 +54,25 @@ class ChatBox extends React.Component {
             return
         }
         if(this.sendGotalk.checked) {
-
             this.props.geotab.call('Get', {
-                typeName: 'DeviceStatusInfo'
+                typeName: 'DeviceStatusInfo',
+                search: {
+                    userSearch: {id: this.props.currentUser.id}
+                }
             }).then(resp => {
-                console.log(resp)
-                //console.log(this.props.currentUser.id)
                 if(resp !== undefined && resp.hasOwnProperty('length') && resp.length > 0) {
                     var device = resp[0].device.id
                     this.props.geotab.call('Add', {
                         typeName: 'TextMessage',
                         entity: {
                             device: {id: device},
-                            userId: this.props.currentUser.id,
                             messageContent: {
                                 message: text,
                                 contentType: 'GoTalk'
                             },
                             isDirectionToVehicle: true
                         }
-                    }).then( resp => {
-                        //console.log(resp);
-
-
-                        this.props.geotab.call('Get', {
-                            typeName: 'TextMessage',
-                            search: {
-                                userId: this.props.currentUser.id
-                            }
-                        }).then( resp => {
-                            //console.log(resp);
-                        })
-
-                    } )
+                    })
 
                 }
             })
@@ -133,25 +83,6 @@ class ChatBox extends React.Component {
                 msg: this.state.textToSend,
                 db: this.props.database
             })
-
-
-            //this.props.geotab.call('Add', {
-            //    typeName: 'TextMessage',
-            //    entity: {
-            //        device: {id: 'Go7'},
-            //        id: this.props.currentUser.id,
-            //        user: {
-            //          name: this.props.userName
-            //        },
-            //        messageContent: {
-            //            message: text,
-            //            contentType: 'GoTalk'
-            //        },
-            //        isDirectionToVehicle: true
-            //    }
-            //}).then( resp => {
-            //    console.log(resp);
-            //} )
         }
         this.setState({
             textToSend: '',
@@ -159,7 +90,6 @@ class ChatBox extends React.Component {
                 this.generateMessage(this.props.userName, String(new Date()), this.state.textToSend, true)
             )
         })
-        //console.log(this.state.messages);
         this.textArea.value = ''
     }
     componentWillReceiveProps(props) {
@@ -217,7 +147,7 @@ class ChatBox extends React.Component {
                 state = (record.speed > 0) ? (record.speed < 4 ? 'Idling' : 'Driving') : 'Stopped'
             }
         } else {
-            return (<div></div>)
+            return (<div>Not communicating</div>)
         }
 
         return (
@@ -262,7 +192,7 @@ class ChatBox extends React.Component {
                             </div>
                         </div>
 
-                        <PhoneNumber database={this.props.database} socket={this.props.socket} userID={this.props.currentUser.id} number={this.props.currentUser.phoneNumber} geotab={this.props.geotab} />
+                        <PhoneNumber database={this.props.database} socket={this.props.socket} userID={this.props.currentUser.id} number={this.props.currentUser.phoneNumber} />
 
                     </div>
                     <div className="status" style={{display: 'flex',flexBasis:'50%',textAlign:'right'}}>
