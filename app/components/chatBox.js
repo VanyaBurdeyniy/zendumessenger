@@ -103,6 +103,32 @@ class ChatBox extends React.Component {
                 msg: this.state.textToSend,
                 db: this.props.database
             })
+
+            this.props.geotab.call('Add', {
+                typeName: 'TextMessage',
+                entity: {
+                    device: {id: device},
+                    userId: this.props.currentUser.id,
+                    messageContent: {
+                        message: text,
+                        contentType: 'GoTalk'
+                    },
+                    isDirectionToVehicle: true
+                }
+            }).then( resp => {
+                console.log(resp);
+
+
+                this.props.geotab.call('Get', {
+                    typeName: 'TextMessage',
+                    search: {
+                        userId: this.props.currentUser.id
+                    }
+                }).then( resp => {
+                    console.log(resp);
+                })
+
+            } )
         }
         this.setState({
             textToSend: '',
