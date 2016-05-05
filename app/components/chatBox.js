@@ -38,7 +38,7 @@ class ChatBox extends React.Component {
                 console.log(resp);
 
                 data = data.filter( message => {
-                    return message.to == resp[0].id;
+                    return message.from == resp[0].id;
                 })
 
                 this.setState({
