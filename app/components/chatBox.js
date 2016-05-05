@@ -115,7 +115,7 @@ class ChatBox extends React.Component {
             this.props.geotab.call('Add', {
                 typeName: 'TextMessage',
                 entity: {
-                    //device: {id: this.props.device.id},
+                    device: {id: 'Go7'},
                     id: this.props.currentUser.id,
                     user: {
                       name: this.props.userName
