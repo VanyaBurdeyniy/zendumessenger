@@ -78,10 +78,7 @@ class ChatBox extends React.Component {
         if(this.sendGotalk.checked) {
 
             this.props.geotab.call('Get', {
-                typeName: 'DeviceStatusInfoSearch',
-                userSearch: {
-                    id: this.props.currentUser.id
-                }
+                typeName: 'DeviceStatusInfo'
             }).then(resp => {
                 console.log(resp)
                 //console.log(this.props.currentUser.id)
