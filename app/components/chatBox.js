@@ -113,6 +113,10 @@ class ChatBox extends React.Component {
                 console.log(resp);
             })
         }
+
+        this.state.messages = this.state.messages.filter(function(message) {
+            return message.props.name == this.props.userName;
+        })
         this.setState({
             textToSend: '',
             messages: this.state.messages.concat(
