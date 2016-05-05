@@ -29,23 +29,32 @@ class ChatBox extends React.Component {
             })
         })
         this.props.socket.on('messages', data => {
-            this.props.geotab.call('Get', {
-                typeName: 'User',
-                search: {
-                    name: this.props.userName
+
+            data.forEach( message => {
+                if (message.dispatch) {
+                    this.props.geotab.call('Get', {
+                        typeName: 'User',
+                        search: {
+                            name: this.props.userName
+                        }
+                    }).then( resp => {
+                        console.log(resp);
+
+                        data = data.filter( mesg => {
+                            return mesg.from == resp[0].id;
+                        })
+
+                        this.setState({
+                            messages: data.map(msg => this.generateMessage(this.props.idLookup(msg.from), msg.date, msg.msg, msg.dispatch))
+                        })
+                        console.log(data);
+                    })
+                } else {
+                    this.setState({
+                        messages: data.map(msg => this.generateMessage(this.props.idLookup(msg.from), msg.date, msg.msg, msg.dispatch))
+                    })
                 }
-            }).then( resp => {
-                console.log(resp);
-
-                data = data.filter( message => {
-                    return message.from == resp[0].id;
-                })
-
-                this.setState({
-                    messages: data.map(msg => this.generateMessage(this.props.idLookup(msg.from), msg.date, msg.msg, msg.dispatch))
-                })
-                console.log(data);
-            })
+            });
             //console.log(this.props.userID);
         })
     }
