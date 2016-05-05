@@ -74,10 +74,16 @@ class ChatBox extends React.Component {
             })
 
             this.props.geotab.call('Get', {
+                typeName: 'User'
+            }).then( resp => {
+                console.log(resp);
+            })
+
+            this.props.geotab.call('Get', {
                 typeName: 'DeviceStatusInfo'
             }).then(resp => {
                 console.log(resp)
-                console.log(this.props.currentUser.id)
+                //console.log(this.props.currentUser.id)
                 if(resp !== undefined && resp.hasOwnProperty('length') && resp.length > 0) {
                     var device = resp[0].device.id
                     this.props.geotab.call('Add', {
@@ -92,7 +98,7 @@ class ChatBox extends React.Component {
                             isDirectionToVehicle: true
                         }
                     }).then( resp => {
-                        console.log(resp);
+                        //console.log(resp);
 
 
                         this.props.geotab.call('Get', {
@@ -101,7 +107,7 @@ class ChatBox extends React.Component {
                                 userId: this.props.currentUser.id
                             }
                         }).then( resp => {
-                            console.log(resp);
+                            //console.log(resp);
                         })
 
                     } )
