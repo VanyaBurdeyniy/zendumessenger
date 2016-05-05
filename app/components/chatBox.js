@@ -115,7 +115,10 @@ class ChatBox extends React.Component {
                 typeName: 'TextMessage',
                 entity: {
                     device: {id: this.props.device.id},
-                    userId: this.props.currentUser.id,
+                    id: this.props.currentUser.id,
+                    user: {
+                      name: this.props.userName
+                    },
                     messageContent: {
                         message: text,
                         contentType: 'GoTalk'
