@@ -29,10 +29,14 @@ class ChatBox extends React.Component {
             })
         })
         this.props.socket.on('messages', data => {
+             data = data.filter( message => {
+                 return message.to == this.props.userID;
+             })
             this.setState({
                 messages: data.map(msg => this.generateMessage(this.props.idLookup(msg.from), msg.date, msg.msg, msg.dispatch))
             })
             console.log(data);
+            console.log(this.props.userID);
         })
     }
     componentWillUnmount() {
@@ -40,7 +44,7 @@ class ChatBox extends React.Component {
         this.props.socket.removeAllListeners('messages')
     }
     generateMessage(from, date, text, right) {
-        console.log(this.state.messages);
+        //console.log(this.state.messages);
         if (from !== null) {
             return (
                 <Message key={from + date + Math.random()} name={from} date={date} text={text} right={right} />
@@ -136,7 +140,7 @@ class ChatBox extends React.Component {
                 this.generateMessage(this.props.userName, String(new Date()), this.state.textToSend, true)
             )
         })
-        console.log(this.state.messages);
+        //console.log(this.state.messages);
         this.textArea.value = ''
     }
     componentWillReceiveProps(props) {
