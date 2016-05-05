@@ -41,11 +41,11 @@ class ChatBox extends React.Component {
                     return message.to == resp[0].id;
                 })
 
+                this.setState({
+                    messages: data.map(msg => this.generateMessage(this.props.idLookup(msg.from), msg.date, msg.msg, msg.dispatch))
+                })
+                console.log(data);
             })
-            this.setState({
-                messages: data.map(msg => this.generateMessage(this.props.idLookup(msg.from), msg.date, msg.msg, msg.dispatch))
-            })
-            console.log(data);
             //console.log(this.props.userID);
         })
     }
