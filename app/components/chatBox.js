@@ -72,6 +72,7 @@ class ChatBox extends React.Component {
                     userSearch: {id: this.props.currentUser.id}
                 }
             }).then(resp => {
+                console.log(resp)
                 if(resp !== undefined && resp.hasOwnProperty('length') && resp.length > 0) {
                     var device = resp[0].device.id
                     this.props.geotab.call('Add', {
