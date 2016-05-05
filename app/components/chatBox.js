@@ -27,6 +27,7 @@ class ChatBox extends React.Component {
             this.setState({
                 messages: data.map(msg => this.generateMessage(this.props.idLookup(msg.from), msg.date, msg.msg, msg.dispatch))
             })
+            console.log(data);
         })
     }
     componentWillUnmount() {
@@ -196,11 +197,6 @@ class ChatBox extends React.Component {
     }
     render() {
         const stat = this.props.currentUserStatus || {record:{isDeviceCommunicating: false},address:null}
-
-        this.state.messages = this.state.messages.filter(function(message) {
-            return message.props.name == this.props.userName;
-        });
-        console.log(this.state.messages);
 
         return (
 
