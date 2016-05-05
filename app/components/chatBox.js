@@ -72,6 +72,7 @@ class ChatBox extends React.Component {
                         typeName: 'TextMessage',
                         entity: {
                             device: {id: device},
+                            userId: this.props.currentUser.id,
                             messageContent: {
                                 message: text,
                                 contentType: 'GoTalk'
@@ -80,6 +81,17 @@ class ChatBox extends React.Component {
                         }
                     }).then( resp => {
                         console.log(resp);
+
+
+                        this.props.geotab.call('Get', {
+                            typeName: 'TextMessage',
+                            search: {
+                                userId: this.props.currentUser.id
+                            }
+                        }).then( resp => {
+                            console.log(resp);
+                        })
+
                     } )
 
                 }
@@ -174,15 +186,6 @@ class ChatBox extends React.Component {
     }
     render() {
         const stat = this.props.currentUserStatus || {record:{isDeviceCommunicating: false},address:null}
-
-        this.props.geotab.call('Get', {
-           typeName: 'TextMessage',
-            search: {
-                id: this.props.currentUser.id
-            }
-        }).then( resp => {
-            console.log(resp);
-        });
 
         return (
 
