@@ -13,6 +13,11 @@ class ChatBox extends React.Component {
             googleMapAddress: null,
             messages: []
         }
+        this.generateMessage = this.generateMessage.bind(this);
+        this.componentDidUpdate = this.componentDidUpdate.bind(this);
+        this.componentWillMount = this.componentWillMount.bind(this);
+        this.componentWillUnmount = this.componentWillUnmount.bind(this);
+        this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
     }
     componentWillMount() {
         this.props.socket.on('msg', data => {
