@@ -49,15 +49,23 @@ class ChatBox extends React.Component {
     }
     generateMessage(from, date, text, right) {
         return (
-            <Message key={from + date + Math.random()} name={this.bindUserInMessage(from)} date={date} text={text} right={right} />
+            <Message key={from + date + Math.random()} name={this.bindUserInMessage(from, right)} date={date} text={text} right={right} />
         )
     }
-    bindUserInMessage(userId) {
-        let u = this.state.users.filter( user => {
-            return userId === user.id
-        })
+    bindUserInMessage(userId, right) {
+        if (right) {
+            let u = this.state.users.filter( user => {
+                return userId === user.id && user.name == this.props.userName
+            })
 
-        return u.length > 0 ? u[0].name : null
+            return u.length > 0 ? u[0].name : null
+        } else {
+            let u = this.state.users.filter( user => {
+                return userId === user.id
+            })
+
+            return u.length > 0 ? u[0].name : null
+        }
     }
     updateText(el) {
         this.setState({
