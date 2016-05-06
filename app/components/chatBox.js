@@ -20,6 +20,15 @@ class ChatBox extends React.Component {
         this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
     }
     componentWillMount() {
+        this.props.geotab.call('Get', {
+            typeName: 'User'
+        }).then( resp => {
+            this.setState({
+                users: resp
+            })
+        })
+
+
         this.props.socket.on('msg', data => {
             this.setState({
                 textToSend: '',
@@ -39,19 +48,16 @@ class ChatBox extends React.Component {
         this.props.socket.removeAllListeners('messages')
     }
     generateMessage(from, date, text, right) {
-        this.props.geotab.call('Get', {
-            typeName: 'User'
-        }).then( resp => {
-             for (let i = 0; i < resp.length; i++){
-                if (resp[i].id == from) {
-                    return (
-                        <Message key={from + date + Math.random()} name={resp[i].name} date={date} text={text} right={right} />
-                    )
-                }
-            }
-            //console.log(u);
-            //return u.length > 0 ? u[0].name : null
+        return (
+            <Message key={from + date + Math.random()} name={this.bindUserInMessage(from)} date={date} text={text} right={right} />
+        )
+    }
+    bindUserInMessage(userId) {
+        let u = this.state.users.filter( user => {
+            return userId === user.id
         })
+
+        return u.length > 0 ? u[0].name : null
     }
     updateText(el) {
         this.setState({
