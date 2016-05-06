@@ -46,7 +46,7 @@ class Chat extends React.Component {
                 return id === user.id
             })
 
-            console.log(u);
+            //console.log(u);
             return u.length > 0 ? u[0].name : null
         })
     }
