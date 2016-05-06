@@ -38,6 +38,9 @@ class ChatBox extends React.Component {
             })
         })
         this.props.socket.on('messages', data => {
+            if (msg.dispatch) {
+
+            }
             this.setState({
                 messages: data.map(msg => this.generateMessage(msg.from, msg.date, msg.msg, msg.dispatch))
             })
@@ -56,8 +59,10 @@ class ChatBox extends React.Component {
         let u = this.state.users.filter( user => {
             return userId === user.id
         })
-
-        return u[0].name == this.props.userName
+        
+        if (u[0].name == this.props.userName) {
+            return u.length > 0 ? u[0].name : null
+        }
     }
     updateText(el) {
         this.setState({
