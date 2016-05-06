@@ -50,7 +50,7 @@ class ChatBox extends React.Component {
     generateMessage(from, date, text, right) {
         if (right) {
             for (let i = 0; i < this.state.users.length; i++) {
-                if (this.state.users[i].name == this.props.userName) {
+                if (this.state.users[i].name == this.props.userName && this.props.users[i].id == from) {
                     return (
                         <Message key={from + date + Math.random()} name={this.bindUserInMessage(from)} date={date} text={text} right={right} />
                     )
