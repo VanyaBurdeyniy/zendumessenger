@@ -39,9 +39,19 @@ class ChatBox extends React.Component {
         this.props.socket.removeAllListeners('messages')
     }
     generateMessage(from, date, text, right) {
-        return (
-            <Message key={from + date + Math.random()} name={from} date={date} text={text} right={right} />
-        )
+        this.props.geotab.call('Get', {
+            typeName: 'User'
+        }).then( resp => {
+            resp.forEach( user => {
+                if (user.id == from) {
+                    return (
+                        <Message key={from + date + Math.random()} name={user.name} date={date} text={text} right={right} />
+                    )
+                }
+            })
+            //console.log(u);
+            //return u.length > 0 ? u[0].name : null
+        })
     }
     updateText(el) {
         this.setState({
