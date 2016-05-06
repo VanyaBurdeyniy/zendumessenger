@@ -131,6 +131,12 @@ class ChatBox extends React.Component {
         this.textArea.value = ''
     }
     componentWillReceiveProps(props) {
+        console.log(props);
+        this.props.socket.emit('reply', {
+            from: props.currentUser.id,
+            db: props.database,
+            msg: props.message
+        })
         this.props.socket.emit('messages', {
             to: props.currentUser.id,
             db: props.database
