@@ -48,18 +48,24 @@ class ChatBox extends React.Component {
         this.props.socket.removeAllListeners('messages')
     }
     generateMessage(from, date, text, right) {
-        if (right) {
-            for (let i = 0; i < this.state.users.length; i++) {
-                if (this.state.users[i].name == this.props.userName && this.state.users[i].id == from) {
-                    return (
-                        <Message key={from + date + Math.random()} name={this.bindUserInMessage(from)} date={date} text={text} right={right} />
-                    )
-                }
-            }
-        } else {
+        if (from == this.props.userName) {
             return (
-                <Message key={from + date + Math.random()} name={this.bindUserInMessage(from)} date={date} text={text} right={right} />
+                <Message key={from + date + Math.random()} name={from} date={date} text={text} right={right} />
             )
+        } else {
+            if (right) {
+                for (let i = 0; i < this.state.users.length; i++) {
+                    if (this.state.users[i].name == this.props.userName && this.state.users[i].id == from) {
+                        return (
+                            <Message key={from + date + Math.random()} name={this.bindUserInMessage(from)} date={date} text={text} right={right} />
+                        )
+                    }
+                }
+            } else {
+                return (
+                    <Message key={from + date + Math.random()} name={this.bindUserInMessage(from)} date={date} text={text} right={right} />
+                )
+            }
         }
     }
     bindUserInMessage(userId) {
