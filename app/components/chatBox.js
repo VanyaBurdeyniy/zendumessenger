@@ -55,12 +55,10 @@ class ChatBox extends React.Component {
     bindUserInMessage(userId, right) {
         if (right) {
             let u = this.state.users.filter( user => {
-                if (user.name == this.props.userName) {
-                    return userId === user.id
-                }
+                return userId === user.id && user.name == this.props.userName
             })
 
-            return u.length > 0 ? u[0].name : null
+            return u[0].name == this.props.userName
         } else {
             let u = this.state.users.filter( user => {
                 return userId === user.id
