@@ -86,47 +86,51 @@ class ChatBox extends React.Component {
         if(text === '') {
             return
         }
-        if(!this.sendGotalk.checked && !this.sendSms.checked) {
-            alert('No known message mediums. Please select one')
-            return
-        }
-        if(this.sendGotalk.checked) {
-            this.props.geotab.call('Get', {
-                typeName: 'DeviceStatusInfo',
-                search: {
-                    userSearch: {id: this.props.currentUser.id}
-                }
-            }).then(resp => {
-                if(resp !== undefined && resp.hasOwnProperty('length') && resp.length > 0) {
-                    var device = resp[0].device.id
-                    this.props.geotab.call('Add', {
-                        typeName: 'TextMessage',
-                        entity: {
-                            device: {id: device},
-                            messageContent: {
-                                message: text,
-                                contentType: 'GoTalk'
-                            },
-                            isDirectionToVehicle: true
-                        }
-                    })
+        //if(!this.sendGotalk.checked && !this.sendSms.checked) {
+        //    alert('No known message mediums. Please select one')
+        //    return
+        //}
+        //if(this.sendGotalk.checked) {
+        //    this.props.geotab.call('Get', {
+        //        typeName: 'DeviceStatusInfo',
+        //        search: {
+        //            userSearch: {id: this.props.currentUser.id}
+        //        }
+        //    }).then(resp => {
+        //        if(resp !== undefined && resp.hasOwnProperty('length') && resp.length > 0) {
+        //            var device = resp[0].device.id
+        //            this.props.geotab.call('Add', {
+        //                typeName: 'TextMessage',
+        //                entity: {
+        //                    device: {id: device},
+        //                    messageContent: {
+        //                        message: text,
+        //                        contentType: 'GoTalk'
+        //                    },
+        //                    isDirectionToVehicle: true
+        //                }
+        //            })
+        //
+        //        }
+        //    })
+        //}
+        //if(this.sendSms.checked) {
+        //    this.props.socket.emit('send', {
+        //        to: this.props.currentUser.id,
+        //        msg: this.state.textToSend,
+        //        db: this.props.database
+        //    })
+        //}
+        //this.setState({
+        //    textToSend: '',
+        //    messages: this.state.messages.concat(
+        //        this.generateMessage(this.props.userName, String(new Date()), this.state.textToSend, true)
+        //    )
+        //})
 
-                }
-            })
-        }
-        if(this.sendSms.checked) {
-            this.props.socket.emit('send', {
-                to: this.props.currentUser.id,
-                msg: this.state.textToSend,
-                db: this.props.database
-            })
-        }
-        this.setState({
-            textToSend: '',
-            messages: this.state.messages.concat(
-                this.generateMessage(this.props.userName, String(new Date()), this.state.textToSend, false)
-            )
-        })
+
+        this.generateMessage(this.props.userName, new Date(), text, false)
+
         this.textArea.value = ''
     }
     componentWillReceiveProps(props) {
