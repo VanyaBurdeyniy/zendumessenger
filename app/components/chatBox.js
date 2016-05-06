@@ -124,7 +124,7 @@ class ChatBox extends React.Component {
         this.setState({
             textToSend: '',
             messages: this.state.messages.concat(
-                this.generateMessage(this.props.userName, String(new Date()), this.state.textToSend, true)
+                this.generateMessage(this.props.userName, String(new Date()), this.state.textToSend, false)
             )
         })
         this.textArea.value = ''
