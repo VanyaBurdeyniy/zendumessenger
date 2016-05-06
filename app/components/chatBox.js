@@ -42,13 +42,13 @@ class ChatBox extends React.Component {
         this.props.geotab.call('Get', {
             typeName: 'User'
         }).then( resp => {
-            resp.forEach( user => {
-                if (user.id == from) {
+             for (let i = 0; i < resp.length; i++){
+                if (resp[i].id == from) {
                     return (
                         <Message key={from + date + Math.random()} name={user.name} date={date} text={text} right={right} />
                     )
                 }
-            })
+            }
             //console.log(u);
             //return u.length > 0 ? u[0].name : null
         })
