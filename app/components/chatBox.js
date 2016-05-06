@@ -45,7 +45,7 @@ class ChatBox extends React.Component {
              for (let i = 0; i < resp.length; i++){
                 if (resp[i].id == from) {
                     return (
-                        <Message key={from + date + Math.random()} name={user.name} date={date} text={text} right={right} />
+                        <Message key={from + date + Math.random()} name={resp[i].name} date={date} text={text} right={right} />
                     )
                 }
             }
