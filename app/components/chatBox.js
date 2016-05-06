@@ -38,9 +38,6 @@ class ChatBox extends React.Component {
             })
         })
         this.props.socket.on('messages', data => {
-            if (msg.dispatch) {
-
-            }
             this.setState({
                 messages: data.map(msg => this.generateMessage(msg.from, msg.date, msg.msg, msg.dispatch))
             })
@@ -51,18 +48,26 @@ class ChatBox extends React.Component {
         this.props.socket.removeAllListeners('messages')
     }
     generateMessage(from, date, text, right) {
-        return (
-            <Message key={from + date + Math.random()} name={this.bindUserInMessage(from)} date={date} text={text} right={right} />
-        )
+        if (right) {
+            for (let i = 0; i < this.state.users.length; i++) {
+                if (this.state.users[i].name == this.props.userName) {
+                    return (
+                        <Message key={from + date + Math.random()} name={this.bindUserInMessage(from)} date={date} text={text} right={right} />
+                    )
+                }
+            }
+        } else {
+            return (
+                <Message key={from + date + Math.random()} name={this.bindUserInMessage(from)} date={date} text={text} right={right} />
+            )
+        }
     }
     bindUserInMessage(userId) {
         let u = this.state.users.filter( user => {
             return userId === user.id
         })
-        
-        if (u[0].name == this.props.userName) {
-            return u.length > 0 ? u[0].name : null
-        }
+
+        return u.length > 0 ? u[0].name : null
     }
     updateText(el) {
         this.setState({
