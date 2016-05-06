@@ -42,6 +42,7 @@ class Chat extends React.Component {
         let u = this.state.users.filter(user => {
             return id === user.id
         })
+        console.log(u);
         return u.length > 0 ? u[0].name : null
     }
     userFromGeotabUser(user,currentUser) {
