@@ -129,7 +129,7 @@ class ChatBox extends React.Component {
         //})
 
 
-        this.generateMessage(this.props.userName, new Date(), text, false)
+        this.generateMessage(this.props.userName, JSON.stringify(new Date()), text, false)
 
         this.textArea.value = ''
     }
