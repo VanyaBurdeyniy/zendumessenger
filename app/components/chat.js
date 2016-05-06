@@ -39,11 +39,16 @@ class Chat extends React.Component {
         })
     }
     usernameFromID(id) {
-        let u = this.state.users.filter(user => {
-            return id === user.id
+        this.props.geotab.call('Get', {
+            typeName: 'User'
+        }).then( resp => {
+            let u = resp.filter(user => {
+                return id === user.id
+            })
+
+            console.log(u);
+            return u.length > 0 ? u[0].name : null
         })
-        console.log(u);
-        return u.length > 0 ? u[0].name : null
     }
     userFromGeotabUser(user,currentUser) {
         let active = currentUser === undefined ? false : (currentUser.id === user.id)
