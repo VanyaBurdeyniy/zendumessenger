@@ -62,16 +62,6 @@ class ChatBox extends React.Component {
                     }
                 }
             } else {
-                this.state.messages.push({
-                    from: from,
-                    to: this.props.userName,
-                    name: this.props.userName,
-                    msg: text,
-                    dispatch: right
-                })
-
-                console.log(this.props.messages);
-
                 return (
                     <Message key={from + date + Math.random()} name={this.bindUserInMessage(from)} date={date} text={text} right={right} />
                 )
