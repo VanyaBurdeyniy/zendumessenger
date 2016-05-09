@@ -13,22 +13,8 @@ class ChatBox extends React.Component {
             googleMapAddress: null,
             messages: []
         }
-        this.generateMessage = this.generateMessage.bind(this);
-        this.componentDidUpdate = this.componentDidUpdate.bind(this);
-        this.componentWillMount = this.componentWillMount.bind(this);
-        this.componentWillUnmount = this.componentWillUnmount.bind(this);
-        this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
     }
     componentWillMount() {
-        this.props.geotab.call('Get', {
-            typeName: 'User'
-        }).then( resp => {
-            this.setState({
-                users: resp
-            })
-        })
-
-
         this.props.socket.on('msg', data => {
             this.setState({
                 textToSend: '',
@@ -39,7 +25,7 @@ class ChatBox extends React.Component {
         })
         this.props.socket.on('messages', data => {
             this.setState({
-                messages: data.map(msg => this.generateMessage(msg.from, msg.date, msg.msg, msg.dispatch))
+                messages: data.map(msg => this.generateMessage(this.props.idLookup(msg.from), msg.date, msg.msg, msg.dispatch))
             })
         })
     }
@@ -48,32 +34,9 @@ class ChatBox extends React.Component {
         this.props.socket.removeAllListeners('messages')
     }
     generateMessage(from, date, text, right) {
-        if (from == this.props.userName) {
-            return (
-                <Message key={from + date + Math.random()} name={from} date={date} text={text} right={right} />
-            )
-        } else {
-            if (right) {
-                for (let i = 0; i < this.state.users.length; i++) {
-                    if (this.state.users[i].name == this.props.userName && this.state.users[i].id == from) {
-                        return (
-                            <Message key={from + date + Math.random()} name={this.bindUserInMessage(from)} date={date} text={text} right={right} />
-                        )
-                    }
-                }
-            } else {
-                return (
-                    <Message key={from + date + Math.random()} name={this.bindUserInMessage(from)} date={date} text={text} right={right} />
-                )
-            }
-        }
-    }
-    bindUserInMessage(userId) {
-        let u = this.state.users.filter( user => {
-            return userId === user.id
-        })
-
-        return u.length > 0 ? u[0].name : null
+        return (
+            <Message key={from + date + Math.random()} name={from} date={date} text={text} right={right} />
+        )
     }
     updateText(el) {
         this.setState({
@@ -127,16 +90,9 @@ class ChatBox extends React.Component {
                 this.generateMessage(this.props.userName, String(new Date()), this.state.textToSend, true)
             )
         })
-
         this.textArea.value = ''
     }
     componentWillReceiveProps(props) {
-        console.log(props);
-        this.props.socket.emit('reply', {
-            from: props.currentUser.id,
-            db: props.database,
-            msg: props.message
-        })
         this.props.socket.emit('messages', {
             to: props.currentUser.id,
             db: props.database
