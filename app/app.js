@@ -54,6 +54,8 @@ geotab.addin.ZenduMessenger = (api,state) => {
       {
         console.log( "error message - " + err.message );
         console.log( "error code - " + err.statusCode );
+
+        return;
       }
 
       function registerUser()
@@ -63,11 +65,7 @@ geotab.addin.ZenduMessenger = (api,state) => {
         user.password = "Zenduit123";
         console.log('register');
 
-        try {
-          Backendless.UserService.register( user, new Backendless.Async( userRegistered, gotError ) );
-        } catch (err) {
-         if (err) return
-        }
+        Backendless.UserService.register( user, new Backendless.Async( userRegistered, gotError ) );
       }
 
       registerUser();
