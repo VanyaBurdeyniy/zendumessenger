@@ -45,9 +45,7 @@ geotab.addin.ZenduMessenger = (api,state) => {
 
 
       api.getSession(cred => {
-        this.setState({
-          cred: cred
-        })
+
         console.log(cred);
         //this.focus();
       })
