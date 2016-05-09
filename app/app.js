@@ -3,6 +3,8 @@ import io from 'socket.io-client'
 
 var wrapper = document.getElementById('checkmateContent')
 
+Backendless.initApp( "5326FC43-1D64-2419-FFEB-E25EC1417F00", "726AE85C-E3B2-209C-FF97-78471BE77900", "v1" );
+
 var windowCallback = () => {
   var listEl = document.querySelector('.list')
   var chatEl = document.querySelector('.chat')
@@ -44,23 +46,29 @@ geotab.addin.ZenduMessenger = (api,state) => {
 
 
 
-      api.getSession(cred => {
 
-        console.log(cred);
+      function userRegistered( user )
+      {
+        console.log( "user has been registered" );
+      }
 
-        $.ajax({
-          type: "POST",
-          url: '104.197.218.74:3051/cred',
-          data: cred,
-          contentType: 'application/json',
-          success: function(data) {
-            console.log(data);
-          },
-          error: function(err) {
-            console.log(err);
-          }
-        });
-      })
+      function gotError( err ) // see more on error handling
+      {
+        console.log( "error message - " + err.message );
+        console.log( "error code - " + err.statusCode );
+      }
+
+      function registerUser()
+      {
+        var user = new Backendless.User();
+        user.email = "apps@zenduit.com";
+        user.password = "Zenduit123";
+        console.log('register');
+
+        Backendless.UserService.register( user, new Backendless.Async( userRegistered, gotError ) );
+      }
+
+      registerUser();
 
     },
     focus: (api,state) => {
