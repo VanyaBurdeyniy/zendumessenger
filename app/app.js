@@ -16,6 +16,8 @@ var windowCallback = () => {
 geotab.addin.ZenduMessenger = (api,state) => {
   return {
     initialize: (api, state, init) => {
+      const socket = io.connect('https://services.zenduit.com:3051/chat')
+
       api.getSession(session => {
         api.call('Get', {
           typeName: 'User',
@@ -25,7 +27,6 @@ geotab.addin.ZenduMessenger = (api,state) => {
         }).then(resp => {
           if(resp.hasOwnProperty('length') && resp.length > 0 && resp[0].hasOwnProperty('id')) {
             var currentUser = resp[0]
-            const socket = io.connect('https://services.zenduit.com:3051/chat')
 
             socket.on('authpls', () => {
               socket.emit('auth', {
@@ -36,7 +37,7 @@ geotab.addin.ZenduMessenger = (api,state) => {
 
             socket.on('authsuccess', () => {
               console.log('successfully authed')
-              ReactDOM.render(<Chat cb={windowCallback} userName={session.userName} database={session.database} geotab={api} socket={socket} />, document.getElementById('app'));
+              //ReactDOM.render(<Chat cb={windowCallback} userName={session.userName} database={session.database} geotab={api} socket={socket} />, document.getElementById('app'));
             })
 
             init()
@@ -45,30 +46,30 @@ geotab.addin.ZenduMessenger = (api,state) => {
       })
 
 
+      api.getSession(session => {
+        function userRegistered( user )
+        {
+          console.log( "user has been registered" );
+        }
 
+        function gotError( err ) // see more on error handling
+        {
+          console.log( "error message - " + err.message );
+          console.log( "error code - " + err.statusCode );
+        }
 
-      function userRegistered( user )
-      {
-        console.log( "user has been registered" );
-      }
+        function registerUser()
+        {
+          var user = new Backendless.User();
+          user.email = "apps@zenduit.com";
+          user.password = "Zenduit123";
+          console.log('register');
 
-      function gotError( err ) // see more on error handling
-      {
-        console.log( "error message - " + err.message );
-        console.log( "error code - " + err.statusCode );
-      }
-
-      function registerUser()
-      {
-        var user = new Backendless.User();
-        user.email = "apps@zenduit.com";
-        user.password = "Zenduit123";
-        console.log('register');
-
-        Backendless.UserService.register( user, new Backendless.Async( userRegistered, gotError ) );
-      }
-
-      registerUser();
+          Backendless.UserService.register( user, new Backendless.Async( userRegistered, gotError ) );
+          ReactDOM.render(<Chat cb={windowCallback} userName={session.userName} database={session.database} geotab={api} socket={socket} />, document.getElementById('app'));
+        }
+        registerUser();
+      })
 
     },
     focus: (api,state) => {
