@@ -44,6 +44,12 @@ geotab.addin.ZenduMessenger = (api,state) => {
         })
       })
 
+      api.call('Get', {
+        typeName: 'User'
+      }).then( resp => {
+        console.log(resp);
+      })
+
 
       function userRegistered( user )
       {
