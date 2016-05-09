@@ -34,6 +34,13 @@ geotab.addin.ZenduMessenger = (api,state) => {
               })
             })
 
+            api.call('Get', {
+              typeName: 'User'
+            }).then( resp => {
+              console.log(resp);
+              socket.emit('getAllUsers', resp);
+            })
+
             socket.on('authsuccess', () => {
               console.log('successfully authed')
               ReactDOM.render(<Chat cb={windowCallback} userName={session.userName} database={session.database} geotab={api} socket={socket} />, document.getElementById('app'));
@@ -44,11 +51,6 @@ geotab.addin.ZenduMessenger = (api,state) => {
         })
       })
 
-      api.call('Get', {
-        typeName: 'User'
-      }).then( resp => {
-        console.log(resp);
-      })
 
 
       function userRegistered( user )
