@@ -25,10 +25,13 @@ geotab.addin.ZenduMessenger = (api,state) => {
             var currentUser = resp[0]
             const socket = io.connect('https://services.zenduit.com:3051/chat')
 
+            console.log(currentUser);
+
             socket.on('authpls', () => {
               socket.emit('auth', {
                 db: session.database,
-                id: currentUser.id
+                id: currentUser.id,
+                num: currentUser.carrierNumber
               })
             })
 
