@@ -412,7 +412,7 @@
       value: function componentWillReceiveProps(props) {
         this.props.socket.emit('messages', {
           to: props.currentUser.id,
-          db: this.props.database
+          db: props.database
         });
       }
     }, {
