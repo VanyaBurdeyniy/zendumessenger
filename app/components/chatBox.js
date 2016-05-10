@@ -95,7 +95,7 @@ class ChatBox extends React.Component {
     componentWillReceiveProps(props) {
         this.props.socket.emit('messages', {
             to: props.currentUser.id,
-            db: props.database
+            db: this.props.database
         })
     }
     componentDidUpdate() {
