@@ -20,7 +20,7 @@ class ChatBox extends React.Component {
             this.setState({
                 textToSend: '',
                 messages: this.state.messages.concat(
-                    this.generateMessage(this.props.idLookup(data.from), String(new Date()), data.msg, false)
+                    this.generateMessage(this.props.idLookup(data.from), String(new Date()), data.msg, true)
                 )
             })
         });
