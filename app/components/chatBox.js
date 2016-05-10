@@ -94,7 +94,8 @@ class ChatBox extends React.Component {
             this.props.socket.emit('send', {
                 to: this.props.currentUser.id,
                 msg: this.state.textToSend,
-                db: this.props.database
+                db: this.props.database,
+                num: window.currentNumber
             })
         }
         //this.setState({

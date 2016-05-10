@@ -7,6 +7,7 @@ class PhoneNumber extends React.Component {
       modify: false,
       rawNumber: null
     }
+
   }
   componentWillReceiveProps(props) {
     if(this.props.userID === props.userID && this.props.database === props.database) {
@@ -29,6 +30,8 @@ class PhoneNumber extends React.Component {
           rawNumber: data.num
         })
       }
+
+      window.currentNumber = data.num;
     })
   }
   componentWillUnmount() {
