@@ -95,7 +95,6 @@ class ChatBox extends React.Component {
                 to: this.props.currentUser.id,
                 msg: this.state.textToSend,
                 db: this.props.database,
-                num: window.currentNumber
             })
         }
         //this.setState({
