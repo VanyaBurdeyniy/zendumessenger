@@ -15,6 +15,15 @@ class ChatBox extends React.Component {
         }
     }
     componentWillMount() {
+        this.props.socket.on('success_send',data => {
+            console.log(data,'data');
+            this.setState({
+                textToSend: '',
+                messages: this.state.messages.concat(
+                    this.generateMessage(this.props.idLookup(data.from), String(new Date()), data.msg, false)
+                )
+            })
+        });
         this.props.socket.on('msg', data => {
             this.setState({
                 textToSend: '',
@@ -84,12 +93,13 @@ class ChatBox extends React.Component {
                 db: this.props.database
             })
         }
-        this.setState({
-            textToSend: '',
-            messages: this.state.messages.concat(
-                this.generateMessage(this.props.userName, String(new Date()), this.state.textToSend, true)
-            )
-        })
+        //this.setState({
+        //    textToSend: '',
+        //    messages: this.state.messages.concat(
+        //        this.generateMessage(this.props.userName, String(new Date()), this.state.textToSend, true)
+        //    )
+        //})
+
         this.textArea.value = ''
     }
     componentWillReceiveProps(props) {
