@@ -48,12 +48,12 @@ class ChatBox extends React.Component {
     }
     generateMessage(from, date, text, right) {
         if (from == null) {
-            return (
-                <Message key={from + date + Math.random()} name={from} date={date} text={text} right={right} />
+            return(
+                <Message key={this.props.userName + date + Math.random()} name={from} date={date} text={text} right={right} />
             )
         } else {
             return(
-                <Message key={this.props.userName + date + Math.random()} name={from} date={date} text={text} right={right} />
+                <Message key={from + date + Math.random()} name={from} date={date} text={text} right={right} />
             )
         }
     }

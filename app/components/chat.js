@@ -63,17 +63,6 @@ class Chat extends React.Component {
             if(resp !== undefined && resp.hasOwnProperty('length') && resp.length > 0) {
                 let currentUser = this.userFromGeotabUser(resp[0])
 
-
-                if (resp[2].firstName == 'Sidhant') {
-                    this.props.geotab.call('Remove', {
-                        typeName: 'User',
-                        entity: resp[2]
-                    }).then(resp => {
-                        console.log(resp);
-                    })
-                }
-
-
                 this.setState({
                     currentUser: currentUser,
                     users: resp.map(user => this.userFromGeotabUser(user,currentUser))
